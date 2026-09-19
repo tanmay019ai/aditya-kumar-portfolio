@@ -6,61 +6,65 @@ import * as THREE from 'three';
 
 interface ParticleFieldProps {
   count?: number;
+  color?: string;
 }
 
-export default function ParticleField({ count = 1800 }: ParticleFieldProps) {
-  const mesh = useRef<THREE.Points>(null);
+export default function ParticleField({ count = 300, color = '#00d4ff' }: ParticleFieldProps) {
+  const pointsRef = useRef<THREE.Points>(null);
 
-  const { positions, colors } = useMemo(() => {
+  const [positions, speeds] = useMemo(() => {
     const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-
-    const colorOptions = [
-      new THREE.Color('#7c6aff'),
-      new THREE.Color('#ffffff'),
-      new THREE.Color('#a78bfa'),
-      new THREE.Color('#c4b5fd'),
-    ];
-
+    const speeds = new Float32Array(count);
+    
     for (let i = 0; i < count; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = 2.5 + Math.random() * 9;
-
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi);
-
-      const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
-      colors[i * 3] = color.r;
-      colors[i * 3 + 1] = color.g;
-      colors[i * 3 + 2] = color.b;
+      positions[i * 3] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5;
+      speeds[i] = 0.01 + Math.random() * 0.03;
     }
-
-    return { positions, colors };
+    
+    return [positions, speeds];
   }, [count]);
 
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, [positions]);
+
   useFrame((state) => {
-    if (!mesh.current) return;
-    mesh.current.rotation.y = state.clock.elapsedTime * 0.035;
-    mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.018) * 0.08;
+    if (!pointsRef.current) return;
+    
+    const time = state.clock.elapsedTime;
+    const posArray = pointsRef.current.geometry.attributes.position.array as Float32Array;
+    
+    for (let i = 0; i < count; i++) {
+      const i3 = i * 3;
+      posArray[i3 + 1] += speeds[i] * 0.5;
+      posArray[i3] += Math.sin(time * 0.5 + i) * 0.005;
+      posArray[i3 + 2] += Math.cos(time * 0.3 + i) * 0.005;
+      
+      if (posArray[i3 + 1] > 10) {
+        posArray[i3 + 1] = -10;
+        posArray[i3] = (Math.random() - 0.5) * 20;
+      }
+    }
+    
+    pointsRef.current.geometry.attributes.position.needsUpdate = true;
+    pointsRef.current.rotation.y = time * 0.02;
+    pointsRef.current.rotation.x = time * 0.01;
   });
 
-  const posAttr = useMemo(() => new THREE.BufferAttribute(positions, 3), [positions]);
-  const colAttr = useMemo(() => new THREE.BufferAttribute(colors, 3), [colors]);
-
   return (
-    <points ref={mesh}>
-      <bufferGeometry>
-        <primitive object={posAttr} attach="attributes-position" />
-        <primitive object={colAttr} attach="attributes-color" />
-      </bufferGeometry>
+    <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial
-        size={0.028}
-        vertexColors
+        size={0.03}
+        color={color}
         transparent
-        opacity={0.65}
-        sizeAttenuation
+        opacity={0.4}
+        sizeAttenuation={true}
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
       />
     </points>
   );

@@ -6,10 +6,12 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
-import Expertise from '@/components/sections/Expertise';
 import Experience from '@/components/sections/Experience';
+import Education from '@/components/sections/Education';
 import Projects from '@/components/sections/Projects';
-import VideoShowcase from '@/components/sections/VideoShowcase';
+import Skills from '@/components/sections/Skills';
+import Freelance from '@/components/sections/Freelance';
+import SystemArchitecture from '@/components/sections/SystemArchitecture';
 import Contact from '@/components/sections/Contact';
 
 const CustomCursor = dynamic(() => import('@/components/shared/CustomCursor'), {
@@ -17,7 +19,6 @@ const CustomCursor = dynamic(() => import('@/components/shared/CustomCursor'), {
 });
 
 export default function Home() {
-  // Initialize Lenis smooth scroll
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let lenis: any;
@@ -37,7 +38,7 @@ export default function Home() {
           requestAnimationFrame(raf);
         };
         requestAnimationFrame(raf);
-      } catch (e) {
+      } catch {
         // Fallback: native scroll
       }
     };
@@ -63,7 +64,11 @@ export default function Home() {
 
         <div className="divider" />
 
-        <Expertise />
+        <Experience />
+
+        <div className="divider" />
+
+        <Education />
 
         <div className="divider" />
 
@@ -71,11 +76,15 @@ export default function Home() {
 
         <div className="divider" />
 
-        <VideoShowcase />
+        <Skills />
 
         <div className="divider" />
 
-        <Experience />
+        <SystemArchitecture />
+
+        <div className="divider" />
+
+        <Freelance />
 
         <div className="divider" />
 

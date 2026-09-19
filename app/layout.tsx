@@ -2,28 +2,34 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Tanmay Srivastav — Full Stack Developer & Creative Technologist',
+  title: 'Aditya Kumar Srivastava | Data Engineer & Full-Stack Developer',
   description:
-    "I don't just build websites. I design brands, engineer scalable applications, edit cinematic content, and help businesses grow through technology, automation, and creative storytelling.",
+    'Aditya Kumar Srivastava — Data Engineer and Full-Stack Developer building scalable data systems, backend architectures and modern web applications.',
   keywords: [
-    'Tanmay Srivastav', 'Full Stack Developer', 'Shopify Developer', 'React Developer',
-    'Next.js', 'Graphic Designer', 'Video Editor', 'Freelance Developer', 'Creative Technologist',
+    'Aditya Kumar Srivastava',
+    'Data Engineer',
+    'Full-Stack Developer',
+    'SQL',
+    'Java',
+    'React',
+    'Next.js',
+    'Node.js',
+    'Backend Developer',
+    'Freelancer',
   ],
-  authors: [{ name: 'Tanmay Srivastav' }],
-  creator: 'Tanmay Srivastav',
+  authors: [{ name: 'Aditya Kumar Srivastava' }],
+  creator: 'Aditya Kumar Srivastava',
   openGraph: {
-    title: 'Tanmay Srivastav — Building Digital Experiences Beyond Gravity',
-    description: 'Full Stack Developer • Creative Technologist • Digital Creator',
+    title: 'Aditya Kumar Srivastava | Data Engineer & Full-Stack Developer',
+    description:
+      'Aditya Kumar Srivastava — Data Engineer and Full-Stack Developer building scalable data systems, backend architectures and modern web applications.',
     type: 'website',
-  },
-  icons: {
-    icon: '/assets/ts-logo.png',
-    apple: '/assets/ts-logo.png',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tanmay Srivastav',
-    description: 'Full Stack Developer • Creative Technologist • Digital Creator',
+    title: 'Aditya Kumar Srivastava | Data Engineer & Full-Stack Developer',
+    description:
+      'Aditya Kumar Srivastava — Data Engineer and Full-Stack Developer building scalable data systems, backend architectures and modern web applications.',
   },
 };
 

@@ -1,231 +1,134 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ArrowDown, ChevronRight, Terminal } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import MagneticButton from '../shared/MagneticButton';
-import { ArrowDown, ArrowRight, Sparkles } from 'lucide-react';
+import { profile } from '@/data/profile';
 
-const HeroScene = dynamic(() => import('../three/HeroScene'), {
+// Dynamically import the 3D scene to avoid SSR issues and improve initial load
+const HeroScene = dynamic(() => import('@/components/three/HeroScene'), {
   ssr: false,
-  loading: () => null,
+  loading: () => (
+    <div className="absolute inset-0 w-full h-full -z-10 flex items-center justify-center opacity-20">
+      <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  ),
 });
 
-const titles = [
-  'Building Digital Experiences Beyond Gravity.',
-  'Beyond Code. Beyond Design. Beyond Limits.',
-  'Engineering Ideas Into Reality.',
-  'Where Code Meets Creativity.',
-  'Creating Products That Scale.',
-];
-
-const stats = [
-  { value: '20+', label: 'Projects Delivered' },
-  { value: '30+', label: 'Brands Designed' },
-  { value: '3+', label: 'Years Experience' },
-  { value: '∞', label: 'Ideas Per Day' },
-];
-
 export default function Hero() {
-  const [titleIdx, setTitleIdx] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(false);
-      setTimeout(() => {
-        setTitleIdx((i) => (i + 1) % titles.length);
-        setVisible(true);
-      }, 500);
-    }, 3800);
-    return () => clearInterval(interval);
-  }, []);
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' as const },
+    },
+  };
 
   return (
-      <section
-        id="home"
-        className="relative flex flex-col justify-center overflow-hidden"
-        style={{
-          minHeight: '100dvh',
-          background: 'var(--bg)',
-        }}
-      >
-      {/* Grid overlay */}
-      <div className="absolute inset-0 grid-overlay opacity-60 pointer-events-none" />
+    <section 
+      id="home" 
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+    >
+      {/* 3D Background */}
+      <HeroScene />
 
-      {/* Radial gradient */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-10%',
-          right: '-5%',
-          width: '700px',
-          height: '700px',
-          background: 'radial-gradient(ellipse at center, rgba(124,106,255,0.15) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: '10%',
-          left: '-10%',
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(ellipse at center, rgba(167,139,250,0.08) 0%, transparent 70%)',
-        }}
-      />
-
-      {/* Three.js Scene */}
-      <div className="absolute inset-0 pointer-events-none">
-        <HeroScene />
-      </div>
-
-      {/* Content */}
-      <div className="container relative z-10 px-4" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '780px' }}>
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 mb-8"
-          >
-            <span
-              className="flex items-center gap-2 px-4 py-2 glass rounded-full"
-              style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}
+      {/* Content overlay */}
+      <div className="container mx-auto px-6 relative z-10 pt-20">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl"
+        >
+          {/* Freelance Badge */}
+          {profile.freelanceStatus && (
+            <motion.div 
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8"
             >
-              <Sparkles size={12} style={{ color: 'var(--accent)' }} />
-              Available for freelance work
-              <span
-                className="w-2 h-2 rounded-full animate-pulse-glow"
-                style={{ background: '#4ade80' }}
-              />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-xs font-medium text-slate-300 tracking-wide uppercase">
+                {profile.freelanceStatus}
+              </span>
+            </motion.div>
+          )}
+
+          {/* Headlines */}
+          <motion.div variants={itemVariants} className="mb-6 space-y-2">
+            <h1 className="font-space font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-white uppercase leading-none">
+              {profile.name}
+            </h1>
+          </motion.div>
+
+          {/* Roles */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 mb-8 font-space text-xl md:text-3xl font-semibold tracking-tight">
+            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
+              {profile.headline || 'DATA ENGINEER'}
+            </span>
+            <span className="hidden sm:block text-slate-600">/</span>
+            <span className="text-slate-400 font-light">
+              {profile.secondaryRole || 'FULL-STACK DEVELOPER'}
             </span>
           </motion.div>
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="font-space gradient-text-subtle"
-            style={{
-              fontSize: 'clamp(32px, 7vw, 72px)',
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
-              lineHeight: 1.0,
-              marginBottom: '12px',
-            }}
-          >
-            Tanmay
-            <br />
-            Srivastav
-          </motion.h1>
-
-          {/* Animated subtitle */}
-          <div style={{ height: 'clamp(36px, 5vw, 54px)', overflow: 'hidden', marginBottom: '28px' }}>
-            <AnimatePresence mode="wait">
-              {visible && (
-                <motion.p
-                  key={titleIdx}
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -40, opacity: 0 }}
-                  transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
-                  className="gradient-text font-space"
-                  style={{
-                    fontSize: 'clamp(14px, 3vw, 18px)',
-                    fontWeight: 600,
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {titles[titleIdx]}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            style={{
-              fontSize: 'clamp(15px, 2vw, 18px)',
-              lineHeight: 1.75,
-              color: 'var(--text-secondary)',
-              maxWidth: '580px',
-              marginBottom: '40px',
-            }}
-          >
-            I don&apos;t just build websites. I design brands, engineer scalable applications,
-            edit cinematic content, and help businesses grow through technology,
-            automation, and creative storytelling.
-          </motion.p>
+          {/* Tagline/Description */}
+          <motion.div variants={itemVariants} className="max-w-2xl mb-12">
+            <p className="text-lg md:text-xl text-slate-400 leading-relaxed">
+              {profile.tagline || 'Building scalable data systems, powerful backend architectures and modern digital experiences.'}
+            </p>
+          </motion.div>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
-          >
-            <MagneticButton
-              id="hero-view-projects"
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4">
+            <a 
               href="#projects"
-              variant="primary"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-transform hover:scale-105"
             >
-              View Projects <ArrowRight size={16} />
-            </MagneticButton>
-            <MagneticButton
-              id="hero-hire-me"
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="relative group-hover:text-white transition-colors duration-300">Explore My Work</span>
+              <Terminal className="relative w-5 h-5 group-hover:text-white transition-colors duration-300" />
+            </a>
+            
+            <a 
               href="#contact"
-              variant="ghost"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-semibold rounded-full border border-white/20 hover:bg-white/5 hover:border-white/40 transition-all"
             >
-              Hire Me
-            </MagneticButton>
+              <span>Let's Build Something</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
           </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-6 md:gap-12 mt-16"
-          >
-            {stats.map((stat, i) => (
-              <div key={i} className="flex flex-col gap-1">
-                <span
-                  className="font-space gradient-text"
-                  style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 700, letterSpacing: '-0.04em', lineHeight: 1 }}
-                >
-                  {stat.value}
-                </span>
-                <span style={{ fontSize: '13px', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase' }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
+        <span className="text-xs text-slate-500 uppercase tracking-widest font-space">Scroll</span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          <ArrowDown size={16} />
+          <ArrowDown className="w-5 h-5 text-slate-400" />
         </motion.div>
-        <span>Scroll</span>
       </motion.div>
     </section>
   );

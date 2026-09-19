@@ -1,145 +1,107 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import GlassCard from '../shared/GlassCard';
-import SectionTitle from '../shared/SectionTitle';
+import { motion } from 'framer-motion';
+import { Database, Server, Code, BarChart3, Cpu, Globe, Activity } from 'lucide-react';
 
-const services = [
-  { icon: '💻', label: 'Full Stack Development' },
-  { icon: '🛍️', label: 'Shopify Development' },
-  { icon: '🔧', label: 'Backend & APIs' },
-  { icon: '🎨', label: 'Graphic Design' },
-  { icon: '🎬', label: 'Video Editing' },
-  { icon: '🤖', label: 'AI & Automation' },
-  { icon: '🗄️', label: 'Database Management' },
-  { icon: '☁️', label: 'Cloud Deployment' },
+const flowNodes = [
+  { id: 'data', label: 'DATA', icon: Database },
+  { id: 'processing', label: 'PROCESSING', icon: Cpu },
+  { id: 'api', label: 'API', icon: Server },
+  { id: 'backend', label: 'BACKEND', icon: Code },
+  { id: 'database', label: 'DATABASE', icon: Database },
+  { id: 'application', label: 'APPLICATION', icon: Globe },
+  { id: 'analytics', label: 'ANALYTICS', icon: BarChart3 },
 ];
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-
   return (
-    <section id="about" className="section" ref={ref}>
-      {/* Radial glow */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          left: '-20%',
-          top: '20%',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(ellipse, rgba(124,106,255,0.07) 0%, transparent 70%)',
-        }}
-      />
+    <section id="about" className="relative py-24 w-full">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left Column: Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col space-y-8"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <div className="h-[1px] w-12 bg-cyan-500"></div>
+                <span className="font-mono text-sm tracking-widest text-cyan-500 uppercase">
+                  // About
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold font-space text-white leading-tight">
+                Engineer. Builder. <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">
+                  Problem Solver.
+                </span>
+              </h2>
+            </div>
+            
+            <div className="space-y-6 text-gray-400 font-inter text-lg leading-relaxed">
+              <p>
+                I am a passionate Data Engineer and Full-Stack Developer dedicated to building robust, scalable data architectures and modern web applications. My expertise lies in designing efficient pipelines, optimizing database systems, and bridging the gap between raw data and actionable insights.
+              </p>
+              <p>
+                With a strong foundation in SQL, Backend Development, and API integration, I tackle complex technical challenges to deliver seamless, performant solutions. I believe in writing clean, maintainable code and architecting systems that are not just functional, but scalable and resilient.
+              </p>
+              <p>
+                Whether it's structuring complex data models, developing responsive user interfaces, or deploying full-stack applications, I approach every project with an engineering mindset and a commitment to quality.
+              </p>
+            </div>
+          </motion.div>
 
-      <div className="container">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-          {/* Left: Glass card with floating */}
-          <motion.div style={{ y }} className="relative">
-            <GlassCard className="p-5 md:p-10" tilt>
-              {/* Real Photo */}
-              <div
-                className="w-full rounded-xl mb-6 overflow-hidden relative group"
-                style={{
-                  height: '350px',
-                  border: '1px solid rgba(124,106,255,0.25)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
-                }}
-              >
-                <img
-                  src="/assets/tanmay-photo.jpg"
-                  alt="Tanmay Srivastav"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          {/* Right Column: Flow Visualization */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="relative h-[650px] w-full flex items-center justify-center p-8 bg-black/40 border border-white/5 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 pointer-events-none"></div>
+            
+            <div className="relative flex flex-col justify-between h-full w-full max-w-[240px]">
+              {/* Connecting Line */}
+              <div className="absolute top-[3%] bottom-[3%] left-1/2 w-1 -translate-x-1/2 bg-gradient-to-b from-cyan-500/20 via-violet-500/20 to-cyan-500/20 rounded-full overflow-hidden">
+                {/* Animated Particle */}
+                <motion.div 
+                  className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent via-cyan-400 to-transparent rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)]"
+                  animate={{
+                    top: ["-15%", "115%"]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
                 />
               </div>
 
-              {/* Service tags */}
-              <div className="flex flex-wrap gap-2">
-                {services.map((s) => (
-                  <span key={s.label} className="tag">
-                    {s.icon} {s.label}
-                  </span>
-                ))}
-              </div>
-            </GlassCard>
-
-            {/* Floating badge */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-              className="absolute -top-4 -right-4 glass rounded-2xl px-4 py-3 flex items-center gap-2"
-            >
-              <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#4ade80', boxShadow: '0 0 8px #4ade80' }} />
-              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--white)' }}>Open to Work</span>
-            </motion.div>
+              {/* Nodes */}
+              {flowNodes.map((node, index) => {
+                const Icon = node.icon;
+                return (
+                  <motion.div
+                    key={node.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="relative z-10 flex items-center bg-gray-900/90 border border-white/10 rounded-xl p-3.5 shadow-lg backdrop-blur-md self-center group hover:border-cyan-500/50 hover:bg-gray-800 transition-all hover:scale-105 w-full justify-center"
+                  >
+                    <Icon className="w-5 h-5 text-cyan-400 mr-3 group-hover:text-cyan-300 transition-colors" />
+                    <span className="font-mono text-xs font-semibold tracking-wider text-gray-200 group-hover:text-white transition-colors">
+                      {node.label}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
-
-          {/* Right: Text content */}
-          <div>
-            <SectionTitle
-              eyebrow="About Me"
-              title="More than just a "
-              highlight="developer."
-            />
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="space-y-5"
-            >
-              <p style={{ fontSize: 'clamp(14px, 3.5vw, 17px)', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
-                I&apos;m <strong style={{ color: 'var(--white)' }}>Tanmay Srivastav</strong> — a full-stack developer,
-                AI enthusiast, and creative technologist originally from <strong style={{ color: 'var(--white)' }}>Basti, Uttar Pradesh</strong>,
-                currently pursuing <strong style={{ color: 'var(--white)' }}>B.Tech in CSE (AI & ML) at Galgotias University, Greater Noida</strong>.
-              </p>
-              <p style={{ fontSize: 'clamp(14px, 3.5vw, 17px)', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
-                From engineering scalable backends at Twwios Technologies, to building
-                production web systems at Webdok, to crafting responsive frontends at SheenEdge —
-                I&apos;ve shipped real products for real clients across the full stack.
-              </p>
-              <p style={{ fontSize: 'clamp(14px, 3.5vw, 17px)', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
-                My goal: <strong style={{ color: 'var(--white)' }}>build things that actually work — fast,
-                scalable, and beautifully engineered.</strong>
-              </p>
-            </motion.div>
-
-            {/* Divider */}
-            <div className="divider my-8" />
-
-            {/* Quick facts */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-2 gap-6"
-            >
-              {[
-                { label: 'Location', value: 'Basti, Uttar Pradesh 🇮🇳' },
-                { label: 'Education', value: 'Galgotias Univ (B.Tech CSE AI/ML)' },
-                { label: 'Phone', value: '+91 84710 48881' },
-                { label: 'Email', value: 'tanmaysr019@gmail.com' },
-              ].map((item) => (
-                <div key={item.label}>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px' }}>
-                    {item.label}
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>
