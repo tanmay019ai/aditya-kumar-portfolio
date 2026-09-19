@@ -5,10 +5,10 @@ export const profile = {
   secondaryRole: 'FULL-STACK DEVELOPER',
   tagline: 'Building scalable data systems, powerful backend architectures and modern digital experiences.',
   freelanceStatus: 'Available for Freelance Projects',
-  email: 'adityaksr.dev@gmail.com', // Professional placeholder / contact email
+  email: 'adityasatyam.30@gmail.com',
   phone: '+91 91709 99094',
-  linkedin: 'https://linkedin.com/in/adityakumarsrivastava', 
-  github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio', 
+  linkedin: 'https://www.linkedin.com/in/aditya-kumar-srivastava-1965a7247/',
+  github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio',
   location: 'New Delhi, India',
 };
 
