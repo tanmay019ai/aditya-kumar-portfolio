@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, ExternalLink } from 'lucide-react';
+import { Mail, Phone, ExternalLink } from 'lucide-react';
 import { profile } from '@/data/profile';
 
 function GithubIcon({ className }: { className?: string }) {
@@ -22,66 +22,75 @@ function LinkedinIcon({ className }: { className?: string }) {
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#030712' }}>
-      {/* Dynamic background effects */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, rgba(124, 58, 237, 0.08) 0%, transparent 60%)' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: 'rgba(0, 212, 255, 0.03)', filter: 'blur(120px)' }} />
+    <section id="contact" className="py-24 sm:py-32 relative overflow-hidden bg-[#030712]">
+      {/* Background radial glow */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.06)_0%,transparent_70%)]" />
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col items-center gap-6"
         >
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            {"LET'S BUILD THE "}
-            <br className="hidden md:block" />
-            <span className="bg-clip-text" style={{ color: 'transparent', backgroundImage: 'linear-gradient(to right, #00d4ff, #7c3aed)', WebkitBackgroundClip: 'text' }}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-wider">
+            <span>GET IN TOUCH</span>
+          </div>
+
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white font-space tracking-tight leading-none uppercase">
+            LET'S BUILD THE <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
               NEXT SYSTEM.
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-light">
+          <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto font-inter leading-relaxed">
             Have an idea, product or technical challenge? Let&apos;s turn it into a scalable digital experience.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
+          {/* Contact Actions Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl pt-4">
+            {/* Phone */}
             <a 
-              href={`mailto:${profile.email}`}
-              className="group relative inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300 rounded-xl w-full sm:w-auto"
-              style={{ background: 'linear-gradient(135deg, #00d4ff, #7c3aed)', color: '#ffffff' }}
+              href={`tel:${profile.phone.replace(/\s+/g, '')}`}
+              className="flex items-center justify-center gap-3 px-5 py-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-cyan-500/40 transition-all text-white font-medium group shadow-lg"
             >
-              <span className="relative flex items-center gap-2 text-base">
-                <Mail className="w-5 h-5" />
-                Contact Me
-              </span>
+              <Phone className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-mono">{profile.phone}</span>
             </a>
 
+            {/* Email */}
+            <a 
+              href={`mailto:${profile.email}`}
+              className="flex items-center justify-center gap-3 px-5 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-2xl text-white font-semibold hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20 group"
+            >
+              <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-sm">Contact Me</span>
+            </a>
+
+            {/* LinkedIn */}
             <a 
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center px-8 py-4 font-medium text-white transition-all duration-300 border rounded-xl w-full sm:w-auto"
-              style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.1)' }}
+              className="flex items-center justify-center gap-3 px-5 py-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-cyan-500/40 transition-all text-white font-medium group shadow-lg"
             >
-              <span className="relative flex items-center gap-2 text-base">
-                <LinkedinIcon className="w-5 h-5" />
-                LinkedIn
-              </span>
+              <LinkedinIcon className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <span className="text-sm">LinkedIn</span>
+              <ExternalLink className="w-3.5 h-3.5 text-gray-500 group-hover:text-white" />
             </a>
 
+            {/* GitHub */}
             <a 
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center px-8 py-4 font-medium text-white transition-all duration-300 border rounded-xl w-full sm:w-auto"
-              style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.1)' }}
+              className="flex items-center justify-center gap-3 px-5 py-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-cyan-500/40 transition-all text-white font-medium group shadow-lg"
             >
-              <span className="relative flex items-center gap-2 text-base">
-                <GithubIcon className="w-5 h-5" />
-                GitHub
-              </span>
+              <GithubIcon className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <span className="text-sm">GitHub</span>
+              <ExternalLink className="w-3.5 h-3.5 text-gray-500 group-hover:text-white" />
             </a>
           </div>
         </motion.div>

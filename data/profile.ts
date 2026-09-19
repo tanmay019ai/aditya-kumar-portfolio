@@ -5,9 +5,10 @@ export const profile = {
   secondaryRole: 'FULL-STACK DEVELOPER',
   tagline: 'Building scalable data systems, powerful backend architectures and modern digital experiences.',
   freelanceStatus: 'Available for Freelance Projects',
-  email: '#', // Replace with actual email
-  linkedin: '#', // Replace with actual LinkedIn URL
-  github: '#', // Replace with actual GitHub URL
+  email: 'adityaksr.dev@gmail.com', // Professional placeholder / contact email
+  phone: '+91 91709 99094',
+  linkedin: 'https://linkedin.com/in/adityakumarsrivastava', 
+  github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio', 
   location: 'New Delhi, India',
 };
 
@@ -113,8 +114,8 @@ export const projects = [
     tech: ['React', 'Next.js', 'TypeScript', 'Node.js', 'SQL', 'D3.js', 'WebSocket'],
     architecture: ['Data Source', 'Ingestion', 'Transformation', 'Processing', 'Database', 'Analytics'],
     accentColor: '#00d4ff',
-    github: '#', // Replace with actual URL
-    demo: '#', // Replace with actual URL
+    github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio',
+    demo: '#',
     featured: true,
   },
   {
@@ -142,8 +143,8 @@ export const projects = [
     tech: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Spring Boot', 'REST APIs', 'SQL'],
     architecture: ['Frontend', 'API', 'Backend', 'Database'],
     accentColor: '#7c3aed',
-    github: '#', // Replace with actual URL
-    demo: '#', // Replace with actual URL
+    github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio',
+    demo: '#',
     featured: true,
   },
   {
@@ -171,8 +172,8 @@ export const projects = [
     tech: ['React', 'Next.js', 'TypeScript', 'D3.js', 'WebSocket', 'Node.js', 'SQL'],
     architecture: ['Data Sources', 'Processing Engine', 'API Layer', 'Visualization Layer'],
     accentColor: '#06b6d4',
-    github: '#', // Replace with actual URL
-    demo: '#', // Replace with actual URL
+    github: 'https://github.com/tanmay019ai/aditya-kumar-portfolio',
+    demo: '#',
     featured: true,
   },
 ];
