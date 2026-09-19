@@ -118,6 +118,7 @@ img {
 
 /* ─── FONTS ────────────────────────────────────────── */
 .font-space { font-family: 'Space Grotesk', sans-serif; }
+.font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
 .font-inter { font-family: 'Inter', sans-serif; }
 .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
 

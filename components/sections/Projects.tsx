@@ -1,17 +1,13 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import {
   ExternalLink,
   Database,
   Cpu,
-  Server,
-  BarChart3,
   Upload,
   CheckCircle2,
-  Activity,
-  Layers,
   Terminal,
   Zap,
 } from 'lucide-react';
@@ -33,7 +29,7 @@ function GithubIcon({ className }: { className?: string }) {
 
 const DataFlowVisual = ({ accentColor }: { accentColor: string }) => {
   return (
-    <div className="relative w-full h-full min-h-[350px] lg:min-h-[450px] flex flex-col items-center justify-center p-4 sm:p-8 bg-black/40 border border-white/10 rounded-2xl overflow-hidden group">
+    <div className="relative w-full h-full min-h-[300px] lg:min-h-[400px] flex flex-col items-center justify-center p-6 sm:p-8 bg-[#050914] border border-white/10 rounded-2xl overflow-hidden group">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
       {/* Animated nodes pipeline */}
@@ -65,15 +61,6 @@ const DataFlowVisual = ({ accentColor }: { accentColor: string }) => {
             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
           />
         </div>
-        {/* Mobile Connecting Line 1 */}
-        <div className="sm:hidden w-[2px] h-8 bg-white/10 relative my-1">
-          <motion.div 
-            className="absolute top-0 left-0 right-0 h-1/3"
-            style={{ backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}` }}
-            animate={{ y: ['-100%', '300%'] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
 
         {/* Node 2 */}
         <div className="flex flex-col items-center gap-2">
@@ -98,15 +85,6 @@ const DataFlowVisual = ({ accentColor }: { accentColor: string }) => {
             className="absolute top-0 left-0 bottom-0 w-1/3"
             style={{ backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}` }}
             animate={{ x: ['-100%', '300%'] }}
-            transition={{ duration: 1.5, delay: 0.75, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
-        {/* Mobile Connecting Line 2 */}
-        <div className="sm:hidden w-[2px] h-8 bg-white/10 relative my-1">
-          <motion.div 
-            className="absolute top-0 left-0 right-0 h-1/3"
-            style={{ backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}` }}
-            animate={{ y: ['-100%', '300%'] }}
             transition={{ duration: 1.5, delay: 0.75, repeat: Infinity, ease: "linear" }}
           />
         </div>
@@ -150,88 +128,67 @@ const DataFlowVisual = ({ accentColor }: { accentColor: string }) => {
 
 const NexusVisual = ({ accentColor }: { accentColor: string }) => {
   return (
-    <div className="relative w-full h-full min-h-[350px] lg:min-h-[450px] flex items-center justify-center p-4 sm:p-8 bg-[#050505] border border-white/10 rounded-2xl overflow-hidden">
-      {/* Dashboard Mockup Container */}
-      <div className="w-full max-w-md bg-[#0a0a0f] rounded-xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[280px]">
+    <div className="relative w-full h-full min-h-[300px] lg:min-h-[400px] flex items-center justify-center p-6 sm:p-8 bg-[#05050a] border border-white/10 rounded-2xl overflow-hidden">
+      <div className="w-full max-w-md bg-[#0a0a14] rounded-xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[260px]">
         {/* Top bar */}
-        <div className="h-10 border-b border-white/5 flex items-center px-4 gap-3 bg-white/[0.02]">
+        <div className="h-9 border-b border-white/5 flex items-center px-4 gap-2 bg-white/[0.02]">
           <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
           </div>
-          <div className="ml-auto w-24 h-4 rounded-full bg-white/5" />
+          <div className="ml-auto w-20 h-3 rounded-full bg-white/10" />
         </div>
         
         {/* Main Content */}
         <div className="flex flex-1 overflow-hidden">
           {/* Sidebar */}
-          <div className="w-16 border-r border-white/5 p-3 flex flex-col gap-3">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
-                <div className="w-4 h-4 rounded-sm bg-white/20" />
+          <div className="w-14 border-r border-white/5 p-2 flex flex-col gap-2">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
+                <div className="w-3.5 h-3.5 rounded-sm bg-white/20" />
               </div>
             ))}
           </div>
           
           {/* Dashboard Area */}
-          <div className="flex-1 p-4 flex flex-col gap-4">
+          <div className="flex-1 p-3 flex flex-col gap-3">
             <div className="flex justify-between items-center">
-              <div className="w-32 h-6 rounded bg-white/10" />
-              <div className="w-16 h-6 rounded-full" style={{ backgroundColor: `${accentColor}33`, color: accentColor }}></div>
+              <div className="w-28 h-5 rounded bg-white/10" />
+              <div className="w-14 h-5 rounded-full" style={{ backgroundColor: `${accentColor}33`, color: accentColor }}></div>
             </div>
             
             {/* Grid */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {[...Array(2)].map((_, i) => (
-                <motion.div 
-                  key={i}
-                  className="h-20 rounded-lg border border-white/5 bg-white/[0.02] p-3 flex flex-col justify-between"
-                  whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
-                >
-                  <div className="w-8 h-8 rounded-full bg-white/10" />
-                  <div className="w-16 h-2 rounded-full bg-white/20" />
-                  <motion.div 
-                    className="w-full h-1 rounded-full mt-2"
-                    style={{ backgroundColor: accentColor }}
-                    initial={{ scaleX: 0, originX: 0 }}
-                    animate={{ scaleX: Math.random() * 0.5 + 0.3 }}
-                    transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                  />
-                </motion.div>
+                <div key={i} className="h-16 rounded-lg border border-white/5 bg-white/[0.02] p-2.5 flex flex-col justify-between">
+                  <div className="w-6 h-6 rounded-full bg-white/10" />
+                  <div className="w-full h-1 rounded-full" style={{ backgroundColor: accentColor }} />
+                </div>
               ))}
             </div>
 
             {/* List */}
-            <div className="flex-1 rounded-lg border border-white/5 bg-white/[0.02] p-3 flex flex-col gap-2">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded bg-white/10" />
+            <div className="flex-1 rounded-lg border border-white/5 bg-white/[0.02] p-2 flex flex-col gap-1.5">
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded bg-white/10" />
                   <div className="flex-1 h-2 rounded-full bg-white/5" />
-                  <div className="w-8 h-2 rounded-full bg-white/10" />
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      
-      {/* Decorative Blur */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[100px] opacity-20 pointer-events-none"
-        style={{ backgroundColor: accentColor }}
-      />
     </div>
   );
 };
 
 const PulseVisual = ({ accentColor }: { accentColor: string }) => {
   return (
-    <div className="relative w-full h-full min-h-[350px] lg:min-h-[450px] flex items-center justify-center p-4 sm:p-8 bg-[#02050a] border border-white/10 rounded-2xl overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,transparent_100%)]"></div>
-      
+    <div className="relative w-full h-full min-h-[300px] lg:min-h-[400px] flex items-center justify-center p-6 sm:p-8 bg-[#030712] border border-white/10 rounded-2xl overflow-hidden">
       <div className="w-full max-w-sm relative z-10">
-        <div className="flex items-end gap-2 h-48 w-full justify-between pb-4 border-b border-white/10 relative">
+        <div className="flex items-end gap-2 h-40 w-full justify-between pb-4 border-b border-white/10 relative">
           {[40, 70, 45, 90, 65, 80, 55, 100].map((height, i) => (
             <motion.div
               key={i}
@@ -240,55 +197,24 @@ const PulseVisual = ({ accentColor }: { accentColor: string }) => {
               initial={{ height: 0 }}
               whileInView={{ height: `${height}%` }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: i * 0.1, type: "spring", stiffness: 50 }}
+              transition={{ duration: 0.8, delay: i * 0.08 }}
             >
-              <motion.div 
-                className="absolute top-0 left-0 right-0 rounded-t-sm"
+              <div 
+                className="absolute top-0 left-0 right-0 h-1 rounded-t-sm"
                 style={{ backgroundColor: accentColor }}
-                initial={{ height: 0 }}
-                animate={{ height: "4px" }}
-                transition={{ delay: 1 + i * 0.1 }}
               />
-              <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-mono bg-white/10 px-2 py-1 rounded backdrop-blur-sm transition-opacity">
-                {height}k
-              </div>
             </motion.div>
           ))}
-          
-          {/* Animated line chart overlay */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
-            <motion.path 
-              d="M 0 120 Q 30 50 60 100 T 130 30 T 200 60 T 280 40 T 350 0" 
-              fill="none" 
-              stroke={accentColor} 
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
-              style={{ filter: `drop-shadow(0 0 8px ${accentColor})` }}
-            />
-          </svg>
         </div>
         
         <div className="flex justify-between mt-4">
           <div className="flex flex-col">
-            <span className="text-white/40 text-xs font-mono mb-1">TOTAL EVENTS</span>
-            <span className="text-2xl font-semibold text-white tracking-tight">
-              2,845,901
-            </span>
+            <span className="text-white/40 text-[10px] font-mono mb-1">TOTAL EVENTS</span>
+            <span className="text-xl font-bold text-white tracking-tight">2,845,901</span>
           </div>
           <div className="flex flex-col items-end">
-            <span className="text-white/40 text-xs font-mono mb-1">REALTIME</span>
-            <div className="flex items-center gap-2">
-              <motion.div 
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: accentColor }}
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <span className="text-white/90 text-sm font-mono" style={{ color: accentColor }}>+42/s</span>
-            </div>
+            <span className="text-white/40 text-[10px] font-mono mb-1">STATUS</span>
+            <span className="text-xs font-mono font-semibold" style={{ color: accentColor }}>ONLINE</span>
           </div>
         </div>
       </div>
@@ -311,147 +237,145 @@ const ProjectVisual = ({ id, accentColor }: { id: string, accentColor: string })
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-24 md:py-40 bg-[#020205] text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="projects" className="relative w-full py-24 md:py-36 bg-[#030712] text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         
         {/* Section Header */}
-        <div className="mb-24 md:mb-40">
+        <div className="mb-16 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mb-6"
+            className="flex items-center gap-3 mb-4"
           >
-            <div className="h-[1px] w-12 bg-white/20"></div>
-            <span className="font-mono text-white/50 text-sm tracking-widest uppercase">
-              // PROJECTS
+            <div className="h-[1px] w-12 bg-cyan-500"></div>
+            <span className="font-mono text-cyan-400 text-xs sm:text-sm tracking-widest uppercase">
+              // FEATURED PROJECTS
             </span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold tracking-tighter"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold font-space tracking-tight"
           >
-            Featured Work
+            Engineering Showcase
           </motion.h2>
         </div>
 
         {/* Projects List */}
-        <div className="flex flex-col gap-32 md:gap-56">
+        <div className="flex flex-col gap-20 md:gap-32">
           {projects.map((project, index) => {
-            const isEven = index % 2 === 1; // 0-indexed, so index 1 is the 2nd item (even)
+            const isEven = index % 2 === 1;
             
             return (
               <motion.div 
                 key={project.id}
-                initial={{ opacity: 0, y: 100 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7 }}
                 className={cn(
-                  "flex flex-col gap-12 lg:gap-20",
+                  "flex flex-col gap-8 lg:gap-14 items-center",
                   isEven ? "lg:flex-row-reverse" : "lg:flex-row"
                 )}
               >
                 {/* Visual Side */}
-                <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
+                <div className="w-full lg:w-1/2">
                   <ProjectVisual id={project.id} accentColor={project.accentColor} />
                 </div>
                 
                 {/* Content Side */}
-                <div className="w-full lg:w-1/2 flex flex-col justify-center relative">
+                <div className="w-full lg:w-1/2 flex flex-col gap-6 relative">
                   
-                  {/* Big Number Background */}
-                  <div className="absolute -top-20 -left-10 text-[180px] font-bold text-white/[0.02] font-mono leading-none pointer-events-none select-none z-0">
+                  {/* Subtle Background Number */}
+                  <div className="text-6xl sm:text-8xl font-black text-white/[0.04] font-mono leading-none pointer-events-none select-none absolute -top-8 left-0 z-0">
                     {project.number}
                   </div>
 
-                  <div className="relative z-10 flex flex-col gap-6">
-                    <div className="flex flex-col">
-                      <span className="font-mono text-sm mb-3 tracking-wider uppercase" style={{ color: project.accentColor }}>
+                  <div className="relative z-10 flex flex-col gap-5 pt-4">
+                    <div>
+                      <span className="font-mono text-xs sm:text-sm font-semibold mb-2 block uppercase tracking-wider" style={{ color: project.accentColor }}>
                         {project.subtitle}
                       </span>
-                      <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                      <h3 className="text-3xl sm:text-4xl font-bold font-space tracking-tight text-white mb-3">
                         {project.name}
                       </h3>
-                      <p className="text-white/60 text-lg leading-relaxed mb-8">
+                      <p className="text-gray-300 text-base leading-relaxed font-inter">
                         {project.description}
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-8">
-                      {/* Problem & Solution */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white/[0.02] border border-white/5 p-5 rounded-xl">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Terminal className="w-4 h-4 text-white/40" />
-                            <h4 className="text-sm font-medium text-white/80">Problem</h4>
-                          </div>
-                          <p className="text-sm text-white/50 leading-relaxed">
-                            {project.problem}
-                          </p>
+                    {/* Problem & Solution */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="bg-white/[0.03] border border-white/10 p-4 rounded-xl">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Terminal className="w-4 h-4 text-gray-400" />
+                          <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-gray-300">Problem</h4>
                         </div>
-                        <div className="bg-white/[0.02] border border-white/5 p-5 rounded-xl">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Zap className="w-4 h-4" style={{ color: project.accentColor }} />
-                            <h4 className="text-sm font-medium text-white/80">Solution</h4>
-                          </div>
-                          <p className="text-sm text-white/50 leading-relaxed">
-                            {project.solution}
-                          </p>
-                        </div>
+                        <p className="text-xs text-gray-400 leading-relaxed font-inter">
+                          {project.problem}
+                        </p>
                       </div>
-
-                      {/* Features */}
-                      <div>
-                        <h4 className="text-sm font-mono text-white/40 mb-4 tracking-widest uppercase">Key Features</h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          {project.features.map((feature, i) => (
-                            <div key={i} className="flex items-start gap-3">
-                              <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: project.accentColor }} />
-                              <span className="text-sm text-white/70">{feature}</span>
-                            </div>
-                          ))}
+                      <div className="bg-white/[0.03] border border-white/10 p-4 rounded-xl">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Zap className="w-4 h-4" style={{ color: project.accentColor }} />
+                          <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-gray-300">Solution</h4>
                         </div>
+                        <p className="text-xs text-gray-400 leading-relaxed font-inter">
+                          {project.solution}
+                        </p>
                       </div>
+                    </div>
 
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {project.tech.map((tech, i) => (
-                          <span 
-                            key={i} 
-                            className="px-3 py-1.5 text-xs font-mono rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white transition-colors"
-                          >
-                            {tech}
-                          </span>
+                    {/* Key Features */}
+                    <div>
+                      <h4 className="text-xs font-mono text-gray-400 mb-2.5 tracking-widest uppercase font-semibold">Key Features</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {project.features.map((feature, i) => (
+                          <div key={i} className="flex items-center gap-2.5">
+                            <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: project.accentColor }} />
+                            <span className="text-xs text-gray-300 font-inter">{feature}</span>
+                          </div>
                         ))}
                       </div>
+                    </div>
 
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/10">
-                        <a 
-                          href={project.demo} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="flex items-center gap-2 px-6 py-3 rounded-full text-black font-medium transition-transform hover:scale-105 active:scale-95"
-                          style={{ backgroundColor: project.accentColor }}
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {project.tech.map((tech, i) => (
+                        <span 
+                          key={i} 
+                          className="px-2.5 py-1 text-xs font-mono rounded-md bg-white/5 border border-white/10 text-gray-300"
                         >
-                          <span>Live Demo</span>
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <a 
-                          href={project.github} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
-                        >
-                          <GithubIcon className="w-4 h-4" />
-                          <span>View Source</span>
-                        </a>
-                      </div>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-white/10">
+                      <a 
+                        href={project.demo} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-full text-black font-semibold text-xs sm:text-sm transition-transform hover:scale-105 active:scale-95 shadow-md"
+                        style={{ backgroundColor: project.accentColor }}
+                      >
+                        <span>Live Demo</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/15 text-white font-medium text-xs sm:text-sm hover:bg-white/20 transition-colors"
+                      >
+                        <GithubIcon className="w-3.5 h-3.5" />
+                        <span>View Source</span>
+                      </a>
                     </div>
                   </div>
                 </div>
